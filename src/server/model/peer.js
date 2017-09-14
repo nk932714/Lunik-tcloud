@@ -6,6 +6,7 @@ import EventEmitter from 'events'
 import Crypto from 'crypto-js'
 import Rand from 'crypto-rand'
 import fs from 'fs'
+import os from 'os'
 
 const maxMem = Math.floor((os.totalmem() / (1024 ^ 2)) * 3 / 4) // MB
 
