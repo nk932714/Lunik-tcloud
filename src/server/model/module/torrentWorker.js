@@ -4,11 +4,6 @@
 
 import WebTorrent from 'webtorrent'
 import Delogger from 'delogger'
-import v8 from 'v8'
-import os from 'os'
-
-const maxMem = Math.floor((os.totalmem() / (1024 ^ 2)) * 3 / 4) // MB
-v8.setFlagsFromString('--max_old_space_size=' + maxMem)
 
 class Worker {
   constructor (magnet) {

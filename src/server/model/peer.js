@@ -7,6 +7,8 @@ import Crypto from 'crypto-js'
 import Rand from 'crypto-rand'
 import fs from 'fs'
 
+const maxMem = Math.floor((os.totalmem() / (1024 ^ 2)) * 3 / 4) // MB
+
 export default class Peer extends EventEmitter {
   constructor (props) {
     super()
@@ -16,7 +18,7 @@ export default class Peer extends EventEmitter {
     this.metadata = {}
 
     if (this.magnet) {
-      this.child = ChildProcess.fork(`${__dirname}/module/torrentWorker`, [this.magnet])
+      this.child = ChildProcess.fork(`${__dirname}/module/torrentWorker`, [this.magnet], {execArgv: ['--max_old_space_size=' + maxMem]})
 
       this.child.on('message', (message) => this.handleMessage(JSON.parse(message)))
     } else {
